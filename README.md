@@ -5,7 +5,8 @@ This is a simple libary to extract text from plaintext, .docx, .odt and .rtf fil
 go get github.com/lu4p/cat
 
 ## Usage
-`package main
+```golang 
+package main
 import (
   "fmt"
   "github.com/lu4p/cat"
@@ -14,4 +15,5 @@ import (
 func main(){
   txt, _ := cat.Cat("filename")
   fmt.Println(txt)
-}`
+}
+```
