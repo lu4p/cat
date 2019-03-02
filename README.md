@@ -1,8 +1,10 @@
 # cat
 This is a simple libary to extract text from plaintext, .docx, .odt and .rtf files.
 
+Work in progess...
+
 ## Install
-go get github.com/lu4p/cat
+```go get -u github.com/lu4p/cat```
 
 ## Usage
 ```golang 
