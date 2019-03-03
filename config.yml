@@ -14,4 +14,4 @@ jobs:
 
       # specify any bash command here prefixed with `run: `
       - run: go get -v -t -d github.com/lu4p/cat
-      - run: go build
+      - run: go test -v
