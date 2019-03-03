@@ -5,12 +5,15 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"strconv"
 	"strings"
 	"time"
-	"os"
+
 	"github.com/EndFirstCorp/peekingReader"
 )
+
+// RtfTxt covert .rtf file to string
 func RtfTxt(filename string) (string, error) {
 	f, err := os.Open(filename)
 	if err != nil {
@@ -24,6 +27,7 @@ func RtfTxt(filename string) (string, error) {
 	s := r.String()
 	return s, nil
 }
+
 // Text is used to convert an io.Reader containing RTF data into
 // plain text
 func Text(r io.Reader) (*bytes.Buffer, error) {
@@ -53,7 +57,7 @@ func readControl(r peekingReader.Reader, s *stack, text *bytes.Buffer) error {
 		return err
 	}
 	if control == "*" { // this is an extended control sequence
-		err := readUntilClosingBrace(r)
+		err = readUntilClosingBrace(r)
 		if err != nil {
 			return err
 		}
@@ -254,7 +258,6 @@ func handleParams(control, param string, text *bytes.Buffer) {
 	// Table of Contents Entries
 	case "tc", "tcfN", "tclN", "tcn ":
 		text.WriteString(param)
-
 
 	// Tabs
 	case "tbN", "tldot", "tleq", "tlhyph", "tlmdot", "tlth", "tlul", "tqc", "tqdec", "tqr", "txN":

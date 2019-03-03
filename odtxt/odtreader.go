@@ -2,9 +2,9 @@ package odtxt
 
 import (
 	"archive/zip"
+	"encoding/xml"
 	"errors"
 	"io/ioutil"
-	"encoding/xml"
 )
 
 //Odt zip struct
@@ -13,10 +13,10 @@ type Odt struct {
 	zipReader     *zip.Reader
 	Files         []*zip.File
 	FilesContent  map[string][]byte
-	Content     string
+	Content       string
 }
 
-func OdtTxt(filename string)(string, error){
+func OdtTxt(filename string) (string, error) {
 	d, err := Open(filename)
 	if err != nil {
 		return "", err
@@ -26,7 +26,7 @@ func OdtTxt(filename string)(string, error){
 	if err != nil {
 		return "", errors.New("Could not Get Content")
 	}
-	return content,  nil
+	return content, nil
 }
 
 func Open(path string) (*Odt, error) {
@@ -80,7 +80,7 @@ func (d *Odt) GetTxt() (content string, err error) {
 }
 
 // listP for w:p tag value
-func (d *Odt)listP(data []byte) (string, error){
+func (d *Odt) listP(data []byte) (string, error) {
 	v := new(Query)
 	err := xml.Unmarshal(data, &v)
 	if err != nil {
@@ -88,23 +88,23 @@ func (d *Odt)listP(data []byte) (string, error){
 	}
 	var result string
 	for _, text := range v.Body.Text {
-	 	for _,P:=range text.P{
-	 		for _, item := range P {
+		for _, P := range text.P {
+			for _, item := range P {
 				result += string(item)
-	 		}
+			}
 			result += "\n"
- 	}
- }
-return result, nil
+		}
+	}
+	return result, nil
 }
 
 type Query struct {
 	XMLName xml.Name `xml:"document-content"`
-	Body Body `xml:"body"`
+	Body    Body     `xml:"body"`
 }
-type Body struct{
+type Body struct {
 	Text []Text `xml:"text"`
 }
-type  Text struct{
+type Text struct {
 	P []string `xml:"p"`
 }
