@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/github/license/lu4p/cat.svg)(https://unlicense.org/)
+[![License](https://img.shields.io/github/license/lu4p/cat.svg)](https://unlicense.org/)
 [![CircleCI](https://circleci.com/gh/lu4p/cat.svg?style=svg)](https://circleci.com/gh/lu4p/cat)
 # cat
 This is a simple libary to extract text from plaintext, .docx, .odt and .rtf files.
