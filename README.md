@@ -1,3 +1,4 @@
+[![GoDoc](https://godoc.org/github.com/lu4p/cat?status.svg)](https://godoc.org/github.com/lu4p/cat)
 [![License](https://img.shields.io/github/license/lu4p/cat.svg)](https://unlicense.org/)
 [![CircleCI](https://circleci.com/gh/lu4p/cat.svg?style=svg)](https://circleci.com/gh/lu4p/cat)
 # cat
