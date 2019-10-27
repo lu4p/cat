@@ -1,6 +1,7 @@
 package cat
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -29,4 +30,10 @@ func TestCat(t *testing.T) {
 	} else {
 		t.Log(".rtf does not match test:", rtf, red)
 	}
+}
+
+func ExampleCat() {
+	txt, _ := Cat("./test/test.docx")
+	fmt.Println(txt)
+	// Output: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ex nec risus venenatis viverra. Cras condimentum dolor vitae dictum rutrum. Etiam viverra sit amet mi at lacinia.
 }
