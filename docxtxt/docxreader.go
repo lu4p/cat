@@ -1,3 +1,4 @@
+// Package docxtxt extracts text from .docx documents
 package docxtxt
 
 import (

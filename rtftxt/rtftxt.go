@@ -1,3 +1,4 @@
+// Package rtftxt extracts text from .rtf documents
 package rtftxt
 
 import (

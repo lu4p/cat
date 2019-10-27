@@ -1,3 +1,4 @@
+// Package plaintxt extracts text from plaintext documents
 package plaintxt
 
 import (

@@ -1,3 +1,4 @@
+// Package odtxt extracts text from .odt documents
 package odtxt
 
 import (
