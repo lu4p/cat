@@ -17,10 +17,11 @@ type Docx struct {
 }
 
 type Words struct {
-	Content    []string
+	Content []string
 }
 
-func DocxtoTxt(filename string)(string, error){
+// ToStr converts a .docx document file to string
+func ToStr(filename string) (string, error) {
 	d, err := OpenDocx(filename)
 	if err != nil {
 		return "", err
@@ -35,9 +36,9 @@ func DocxtoTxt(filename string)(string, error){
 		for _, content := range word.Content {
 			result += content
 		}
-	result += "\n"
-}
-	return result,  nil
+		result += "\n"
+	}
+	return result, nil
 }
 
 //OpenDocx open and load all files content
@@ -88,7 +89,7 @@ func (d *Docx) retrieveFileContents(filename string) ([]byte, error) {
 }
 
 //GenWordsList
-func (d *Docx) GenWordsList() () {
+func (d *Docx) GenWordsList() {
 	xmlData := string(d.FilesContent["word/document.xml"])
 	d.listP(xmlData)
 }
@@ -124,7 +125,7 @@ func hasP(data string) bool {
 }
 
 // listP for w:p tag value
-func (d *Docx)listP(data string) {
+func (d *Docx) listP(data string) {
 	var result []string
 	re := regexp.MustCompile(`(?U)<w:p>(.*)</w:p>`)
 	for _, match := range re.FindAllStringSubmatch(string(data), -1) {

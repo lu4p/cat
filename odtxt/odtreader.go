@@ -16,7 +16,8 @@ type Odt struct {
 	Content       string
 }
 
-func OdtTxt(filename string) (string, error) {
+// ToStr converts a .odt document file to string
+func ToStr(filename string) (string, error) {
 	d, err := Open(filename)
 	if err != nil {
 		return "", err

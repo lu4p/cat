@@ -13,8 +13,8 @@ import (
 	"github.com/EndFirstCorp/peekingReader"
 )
 
-// RtfTxt covert .rtf file to string
-func RtfTxt(filename string) (string, error) {
+// ToStr converts a .rtf document file to string
+func ToStr(filename string) (string, error) {
 	f, err := os.Open(filename)
 	if err != nil {
 		return "", err

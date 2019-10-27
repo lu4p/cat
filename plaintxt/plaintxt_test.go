@@ -1,20 +1,20 @@
-package odtxt_test
+package plaintxt_test
 
 import (
 	"testing"
 
-	"github.com/lu4p/cat/odtxt"
+	"github.com/lu4p/cat/plaintxt"
 )
 
 const test = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ex nec risus venenatis viverra. Cras condimentum dolor vitae dictum rutrum. Etiam viverra sit amet mi at lacinia.\n"
 
-func TestTxt(t *testing.T) {
-	txt, err := odtxt.ToStr("../test/test.odt")
+func TestToStr(t *testing.T) {
+	txt, err := plaintxt.ToStr("../test/test.txt")
 	if err != nil {
-		t.Error(".odt failed:", err)
+		t.Error(err)
 	} else if txt == test {
-		t.Log(".odt success")
+		t.Log("success")
 	} else {
-		t.Error(".odt does not match test:", txt, test)
+		t.Error("does not match test:", txt, test)
 	}
 }
