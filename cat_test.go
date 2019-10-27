@@ -32,7 +32,7 @@ func TestCat(t *testing.T) {
 	}
 }
 
-func ExampleCat() {
+func Example() {
 	txt, _ := Cat("./test/test.docx")
 	fmt.Println(txt)
 	// Output: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ex nec risus venenatis viverra. Cras condimentum dolor vitae dictum rutrum. Etiam viverra sit amet mi at lacinia.
