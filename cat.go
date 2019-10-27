@@ -1,3 +1,4 @@
+// Package cat extracts text from multiple document formats
 package cat
 
 import (
