@@ -61,6 +61,7 @@ func (d *Odt) retrieveFileContents(filename string) ([]byte, error) {
 	for _, f := range d.Files {
 		if f.Name == filename {
 			file = f
+			break
 		}
 	}
 
