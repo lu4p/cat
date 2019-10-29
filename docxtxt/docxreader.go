@@ -3,6 +3,7 @@ package docxtxt
 
 import (
 	"archive/zip"
+	"bytes"
 	"errors"
 	"io/ioutil"
 	"regexp"
@@ -19,6 +20,45 @@ type Docx struct {
 
 type Words struct {
 	Content []string
+}
+
+// ToStr converts a reader on .docx document file to string
+func BytesToStr(data []byte) (string, error) {
+	reader := bytes.NewReader(data)
+	d, err := OpenDocxReader(reader)
+	if err != nil {
+		return "", err
+	}
+	d.GenWordsList()
+	var result string
+	for _, word := range d.WordsList {
+		for _, content := range word.Content {
+			result += content
+		}
+		result += "\n"
+	}
+	return result, nil
+}
+
+//OpenDocx open and load all files content
+func OpenDocxReader(bytesReader *bytes.Reader) (*Docx, error) {
+	reader, err := zip.NewReader(bytesReader, bytesReader.Size())
+	if err != nil {
+		return nil, err
+	}
+
+	wordDoc := Docx{
+		zipFileReader: nil,
+		Files:         reader.File,
+		FilesContent:  map[string][]byte{},
+	}
+
+	for _, f := range wordDoc.Files {
+		contents, _ := wordDoc.retrieveFileContents(f.Name)
+		wordDoc.FilesContent[f.Name] = contents
+	}
+
+	return &wordDoc, nil
 }
 
 // ToStr converts a .docx document file to string

@@ -1,6 +1,8 @@
 package docxtxt_test
 
 import (
+	"io/ioutil"
+	"os"
 	"testing"
 
 	"github.com/lu4p/cat/docxtxt"
@@ -10,6 +12,25 @@ const test = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ex
 
 func TestToTxt(t *testing.T) {
 	txt, err := docxtxt.ToStr("../test/test.docx")
+	if err != nil {
+		t.Error(".docx failed:", err)
+	} else if txt == test {
+		t.Log(".docx success")
+	} else {
+		t.Error(".docx does not match test:", txt, test)
+	}
+}
+
+func TestReaderToTxt(t *testing.T) {
+	file, err := os.Open("../test/test.docx")
+	if err != nil {
+		t.Error("can't open test.docx file")
+	}
+	data, err := ioutil.ReadAll(file)
+	if err != nil {
+		t.Error(err)
+	}
+	txt, err := docxtxt.BytesToStr(data)
 	if err != nil {
 		t.Error(".docx failed:", err)
 	} else if txt == test {
