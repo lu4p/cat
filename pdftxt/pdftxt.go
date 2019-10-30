@@ -1,3 +1,4 @@
+//Package pdftxt extracts text from pdf documents
 package pdftxt
 
 import (
