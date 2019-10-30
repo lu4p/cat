@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/lu4p/cat/docxtxt"
+	"github.com/micaelAlastor/cat/docxtxt"
 )
 
 const test = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ex nec risus venenatis viverra. Cras condimentum dolor vitae dictum rutrum. Etiam viverra sit amet mi at lacinia.\n"

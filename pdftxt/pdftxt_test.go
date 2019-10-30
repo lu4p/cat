@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lu4p/cat/pdftxt"
+	"github.com/micaelAlastor/cat/pdftxt"
 )
 
 const test = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ex nec risus venenatis viverra. Cras 

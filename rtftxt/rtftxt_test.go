@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/lu4p/cat/rtftxt"
+	"github.com/micaelAlastor/cat/rtftxt"
 )
 
 const txt = `Of course, we frequently hear about larger brands pushing out a ton of amazing content, and they're often used as examples of how to do content right. `

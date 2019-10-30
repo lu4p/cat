@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/lu4p/cat"
+	"github.com/micaelAlastor/cat"
 )
 
 func main() {
