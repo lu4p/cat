@@ -21,7 +21,7 @@ func TestToTxt(t *testing.T) {
 	}
 }
 
-func TestReaderToTxt(t *testing.T) {
+func TestBytesToTxt(t *testing.T) {
 	file, err := os.Open("../test/test.docx")
 	if err != nil {
 		t.Error("can't open test.docx file")
