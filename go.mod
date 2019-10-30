@@ -1,4 +1,4 @@
-module github.com/lu4p/cat
+module github.com/micaelAlastor/cat
 
 go 1.13
 
