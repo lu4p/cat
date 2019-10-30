@@ -14,6 +14,17 @@ import (
 	"github.com/EndFirstCorp/peekingReader"
 )
 
+// BytesToStr converts a .rtf document file to string
+func BytesToStr(data []byte) (string, error) {
+	reader := bytes.NewReader(data)
+	r, err := Text(reader)
+	if err != nil {
+		return "", err
+	}
+	s := r.String()
+	return s, nil
+}
+
 // ToStr converts a .rtf document file to string
 func ToStr(filename string) (string, error) {
 	f, err := os.Open(filename)

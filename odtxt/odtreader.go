@@ -18,7 +18,7 @@ type Odt struct {
 	Content       string
 }
 
-// ToStr converts a reader on .docx document file to string
+// BytesToStr converts a []byte representation of .odt document file to string
 func BytesToStr(data []byte) (string, error) {
 	reader := bytes.NewReader(data)
 	d, err := OpenReader(reader)

@@ -1,6 +1,8 @@
 package rtftxt_test
 
 import (
+	"io/ioutil"
+	"os"
 	"testing"
 
 	"github.com/lu4p/cat/rtftxt"
@@ -11,6 +13,28 @@ const red = `Restore The Selling Balance. Ad Technology doesn't have to be facel
 
 func Test2Text(t *testing.T) {
 	s, err := rtftxt.ToStr(`../test/np.new.rtf`)
+	if err != nil {
+		t.Error(err)
+	}
+	if s != txt {
+		t.Error("doesn't match", s)
+	}
+	s, err = rtftxt.ToStr(`../test/ad.rtf`)
+	if err != nil {
+		t.Error(err)
+	}
+	if s != red {
+		t.Error("doesn't match", s)
+	}
+}
+
+func TestBytes2Text(t *testing.T) {
+	file, err := os.Open("../test/np.new.rtf")
+	if err != nil {
+		t.Error("can't open test.rtf file")
+	}
+	data, err := ioutil.ReadAll(file)
+	s, err := rtftxt.BytesToStr(data)
 	if err != nil {
 		t.Error(err)
 	}
