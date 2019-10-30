@@ -10,7 +10,7 @@ import (
 
 const test = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ex nec risus venenatis viverra. Cras condimentum dolor vitae dictum rutrum. Etiam viverra sit amet mi at lacinia.\n"
 
-func TestToTxt(t *testing.T) {
+func TestToStr(t *testing.T) {
 	txt, err := docxtxt.ToStr("../test/test.docx")
 	if err != nil {
 		t.Error(".docx failed:", err)
