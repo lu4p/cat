@@ -8,7 +8,7 @@ This is a simple libary to extract text from plaintext, .docx, .odt, .pdf and .r
 ## Install
 ```go get -u github.com/lu4p/cat```
 
-## Usage
+## Basic Usage
 ```golang 
 package main
 import (
