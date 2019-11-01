@@ -8,7 +8,6 @@ jobs:
       # specify the version
       - image: circleci/golang:1.13
 
-    working_directory: /cat
     steps:
       # specify any bash command here prefixed with `run: `
       - run: git clone https://github.com/lu4p/cat.git .
