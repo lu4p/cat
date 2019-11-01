@@ -35,6 +35,11 @@ func TestCat(t *testing.T) {
 	} else {
 		t.Log(".rtf does not match test:", rtf, red)
 	}
+
+	_, err = cat.File("./test/nonexistent")
+	if err == nil {
+		t.Error("Nonexisting file does not throw error")
+	}
 }
 
 func Example() {

@@ -24,4 +24,9 @@ func TestToStr(t *testing.T) {
 	if s != red {
 		t.Error("doesn't match", s)
 	}
+
+	_, err = rtftxt.ToStr("./test/nonexistent")
+	if err == nil {
+		t.Error("Nonexisting file does not throw error")
+	}
 }

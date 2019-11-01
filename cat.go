@@ -36,5 +36,4 @@ func FromBytes(data []byte) (string, error) {
 	default:
 		return plaintxt.BytesToStr(data)
 	}
-
 }

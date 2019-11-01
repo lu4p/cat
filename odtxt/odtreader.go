@@ -10,7 +10,7 @@ import (
 )
 
 //Odt zip struct
-type Odt struct {
+type odt struct {
 	zipFileReader *zip.ReadCloser
 	zipReader     *zip.Reader
 	Files         []*zip.File
@@ -18,14 +18,14 @@ type Odt struct {
 	Content       string
 }
 
-type Query struct {
+type query struct {
 	XMLName xml.Name `xml:"document-content"`
-	Body    Body     `xml:"body"`
+	Body    body     `xml:"body"`
 }
-type Body struct {
-	Text []Text `xml:"text"`
+type body struct {
+	Text []text `xml:"text"`
 }
-type Text struct {
+type text struct {
 	P []string `xml:"p"`
 }
 
@@ -41,7 +41,7 @@ func ToStr(filename string) (string, error) {
 // BytesToStr converts a []byte representation of a .odt document file to string
 func BytesToStr(data []byte) (string, error) {
 	reader := bytes.NewReader(data)
-	d, err := OpenReader(reader)
+	d, err := openReader(reader)
 	if err != nil {
 		return "", err
 	}
@@ -52,14 +52,14 @@ func BytesToStr(data []byte) (string, error) {
 	return content, nil
 }
 
-// OpenReader open and load all readers content
-func OpenReader(bytesReader *bytes.Reader) (*Odt, error) {
+// openReader open and load all readers content
+func openReader(bytesReader *bytes.Reader) (*odt, error) {
 	reader, err := zip.NewReader(bytesReader, bytesReader.Size())
 	if err != nil {
 		return nil, err
 	}
 
-	odtDoc := Odt{
+	odtDoc := odt{
 		zipFileReader: nil,
 		Files:         reader.File,
 		FilesContent:  map[string][]byte{},
@@ -74,7 +74,7 @@ func OpenReader(bytesReader *bytes.Reader) (*Odt, error) {
 }
 
 //Read all files contents
-func (d *Odt) retrieveFileContents(filename string) ([]byte, error) {
+func (d *odt) retrieveFileContents(filename string) ([]byte, error) {
 	var file *zip.File
 	for _, f := range d.Files {
 		if f.Name == filename {
@@ -94,15 +94,15 @@ func (d *Odt) retrieveFileContents(filename string) ([]byte, error) {
 	return ioutil.ReadAll(reader)
 }
 
-func (d *Odt) GetTxt() (content string, err error) {
+func (d *odt) GetTxt() (content string, err error) {
 	xmlData := d.FilesContent["content.xml"]
 	content, err = d.listP(xmlData)
 	return
 }
 
 // listP for w:p tag value
-func (d *Odt) listP(data []byte) (string, error) {
-	v := new(Query)
+func (d *odt) listP(data []byte) (string, error) {
+	v := new(query)
 	err := xml.Unmarshal(data, &v)
 	if err != nil {
 		return "", err

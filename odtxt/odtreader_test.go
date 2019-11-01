@@ -17,4 +17,8 @@ func TestTxt(t *testing.T) {
 	} else {
 		t.Error(".odt does not match test:", txt, test)
 	}
+	_, err = odtxt.ToStr("./test/nonexistent")
+	if err == nil {
+		t.Error("Nonexisting file does not throw error")
+	}
 }

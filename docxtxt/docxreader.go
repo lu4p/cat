@@ -9,16 +9,16 @@ import (
 	"regexp"
 )
 
-//Docx zip struct
-type Docx struct {
+//docx zip struct
+type docx struct {
 	zipFileReader *zip.ReadCloser
 	zipReader     *zip.Reader
 	Files         []*zip.File
 	FilesContent  map[string][]byte
-	WordsList     []*Words
+	WordsList     []*words
 }
 
-type Words struct {
+type words struct {
 	Content []string
 }
 
@@ -35,7 +35,7 @@ func ToStr(filename string) (string, error) {
 // BytesToStr converts a []byte representation of .docx document file to string
 func BytesToStr(data []byte) (string, error) {
 	reader := bytes.NewReader(data)
-	d, err := OpenDocxReader(reader)
+	d, err := openDocxReader(reader)
 	if err != nil {
 		return "", err
 	}
@@ -50,14 +50,14 @@ func BytesToStr(data []byte) (string, error) {
 	return result, nil
 }
 
-// OpenDocxReader open and load all readers content
-func OpenDocxReader(bytesReader *bytes.Reader) (*Docx, error) {
+// openDocxReader open and load all readers content
+func openDocxReader(bytesReader *bytes.Reader) (*docx, error) {
 	reader, err := zip.NewReader(bytesReader, bytesReader.Size())
 	if err != nil {
 		return nil, err
 	}
 
-	wordDoc := Docx{
+	wordDoc := docx{
 		zipFileReader: nil,
 		Files:         reader.File,
 		FilesContent:  map[string][]byte{},
@@ -72,7 +72,7 @@ func OpenDocxReader(bytesReader *bytes.Reader) (*Docx, error) {
 }
 
 // Read all files contents
-func (d *Docx) retrieveFileContents(filename string) ([]byte, error) {
+func (d *docx) retrieveFileContents(filename string) ([]byte, error) {
 	var file *zip.File
 	for _, f := range d.Files {
 		if f.Name == filename {
@@ -93,18 +93,18 @@ func (d *Docx) retrieveFileContents(filename string) ([]byte, error) {
 }
 
 // GenWordsList generate a list of all words
-func (d *Docx) GenWordsList() {
+func (d *docx) GenWordsList() {
 	xmlData := string(d.FilesContent["word/document.xml"])
 	d.listP(xmlData)
 }
 
 //get w:t value
-func (d *Docx) getT(item string) {
+func (d *docx) getT(item string) {
 	var subStr string
 	data := item
 	reRun := regexp.MustCompile(`(?U)(<w:r>|<w:r .*>)(.*)(</w:r>)`)
 	re := regexp.MustCompile(`(?U)(<w:t>|<w:t .*>)(.*)(</w:t>)`)
-	w := new(Words)
+	w := new(words)
 	content := []string{}
 
 	wrMatch := reRun.FindAllStringSubmatchIndex(data, -1)
@@ -129,7 +129,7 @@ func hasP(data string) bool {
 }
 
 // listP for w:p tag value
-func (d *Docx) listP(data string) {
+func (d *docx) listP(data string) {
 	var result []string
 	re := regexp.MustCompile(`(?U)<w:p>(.*)</w:p>`)
 	for _, match := range re.FindAllStringSubmatch(string(data), -1) {
