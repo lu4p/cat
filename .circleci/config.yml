@@ -10,8 +10,6 @@ jobs:
 
     working_directory: /
     steps:
-      - checkout
-
       # specify any bash command here prefixed with `run: `
       - run: git clone https://github.com/lu4p/cat.git && cd /cat
       - run: go test -v github.com/lu4p/cat
