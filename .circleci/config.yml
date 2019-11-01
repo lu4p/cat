@@ -13,7 +13,7 @@ jobs:
       - run: git clone https://github.com/lu4p/cat.git .
       - run: go test -v github.com/lu4p/cat
       - run: go test -v github.com/lu4p/cat/docxtxt
-      - run: go test -v github.com/lu4p/cat/odttxt
+      - run: go test -v github.com/lu4p/cat/odtxt
       - run: go test -v github.com/lu4p/cat/pdftxt
       - run: go test -v github.com/lu4p/cat/rtftxt
       - run: go test -v github.com/lu4p/cat/plaintxt
