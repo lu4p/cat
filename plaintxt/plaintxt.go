@@ -8,9 +8,15 @@ import (
 
 // ToStr converts a plaintext file to string
 func ToStr(filename string) (string, error) {
-	outbyte, err := ioutil.ReadFile(filename)
+	content, err := ioutil.ReadFile(filename)
 	if err != nil {
-		return "", errors.New("Error while reading file")
+		return "", errors.New("Error while reading file: " + err.Error())
 	}
-	return string(outbyte), nil
+	return BytesToStr(content)
+
+}
+
+// BytesToStr converts a []byte representation of a plaintext file to string
+func BytesToStr(data []byte) (string, error) {
+	return string(data), nil
 }

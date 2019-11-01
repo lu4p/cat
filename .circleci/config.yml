@@ -14,4 +14,10 @@ jobs:
 
       # specify any bash command here prefixed with `run: `
       - run: go get -v -t -d github.com/lu4p/cat
-      - run: go test -v
+      - run: go test -v github.com/lu4p/cat
+      - run: go test -v github.com/lu4p/cat/docxtxt
+      - run: go test -v github.com/lu4p/cat/odttxt
+      - run: go test -v github.com/lu4p/cat/pdftxt
+      - run: go test -v github.com/lu4p/cat/rtftxt
+      - run: go test -v github.com/lu4p/cat/plaintxt
+      - run: go build ./cmd/cat

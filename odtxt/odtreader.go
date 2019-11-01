@@ -18,7 +18,27 @@ type Odt struct {
 	Content       string
 }
 
-// BytesToStr converts a []byte representation of .odt document file to string
+type Query struct {
+	XMLName xml.Name `xml:"document-content"`
+	Body    Body     `xml:"body"`
+}
+type Body struct {
+	Text []Text `xml:"text"`
+}
+type Text struct {
+	P []string `xml:"p"`
+}
+
+// ToStr converts a .odt document file to string
+func ToStr(filename string) (string, error) {
+	content, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return "", err
+	}
+	return BytesToStr(content)
+}
+
+// BytesToStr converts a []byte representation of a .odt document file to string
 func BytesToStr(data []byte) (string, error) {
 	reader := bytes.NewReader(data)
 	d, err := OpenReader(reader)
@@ -32,7 +52,7 @@ func BytesToStr(data []byte) (string, error) {
 	return content, nil
 }
 
-//OpenDocx open and load all files content
+// OpenReader open and load all readers content
 func OpenReader(bytesReader *bytes.Reader) (*Odt, error) {
 	reader, err := zip.NewReader(bytesReader, bytesReader.Size())
 	if err != nil {
@@ -51,44 +71,6 @@ func OpenReader(bytesReader *bytes.Reader) (*Odt, error) {
 	}
 
 	return &odtDoc, nil
-}
-
-// ToStr converts a .odt document file to string
-func ToStr(filename string) (string, error) {
-	d, err := Open(filename)
-	if err != nil {
-		return "", err
-	}
-	d.CloseZip()
-	content, err := d.GetTxt()
-	if err != nil {
-		return "", errors.New("Could not Get Content")
-	}
-	return content, nil
-}
-
-func Open(path string) (*Odt, error) {
-	reader, err := zip.OpenReader(path)
-	if err != nil {
-		return nil, err
-	}
-
-	odtDoc := Odt{
-		zipFileReader: reader,
-		Files:         reader.File,
-		FilesContent:  map[string][]byte{},
-	}
-
-	for _, f := range odtDoc.Files {
-		contents, _ := odtDoc.retrieveFileContents(f.Name)
-		odtDoc.FilesContent[f.Name] = contents
-	}
-
-	return &odtDoc, nil
-}
-
-func (d *Odt) CloseZip() error {
-	return d.zipFileReader.Close()
 }
 
 //Read all files contents
@@ -135,15 +117,4 @@ func (d *Odt) listP(data []byte) (string, error) {
 		}
 	}
 	return result, nil
-}
-
-type Query struct {
-	XMLName xml.Name `xml:"document-content"`
-	Body    Body     `xml:"body"`
-}
-type Body struct {
-	Text []Text `xml:"text"`
-}
-type Text struct {
-	P []string `xml:"p"`
 }

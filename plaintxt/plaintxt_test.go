@@ -3,7 +3,7 @@ package plaintxt_test
 import (
 	"testing"
 
-	"github.com/micaelAlastor/cat/plaintxt"
+	"github.com/lu4p/cat/plaintxt"
 )
 
 const test = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ex nec risus venenatis viverra. Cras condimentum dolor vitae dictum rutrum. Etiam viverra sit amet mi at lacinia.\n"

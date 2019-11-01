@@ -22,6 +22,16 @@ type Words struct {
 	Content []string
 }
 
+// ToStr converts a .docx document file to string
+func ToStr(filename string) (string, error) {
+	content, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return "", err
+	}
+	return BytesToStr(content)
+
+}
+
 // BytesToStr converts a []byte representation of .docx document file to string
 func BytesToStr(data []byte) (string, error) {
 	reader := bytes.NewReader(data)
@@ -40,7 +50,7 @@ func BytesToStr(data []byte) (string, error) {
 	return result, nil
 }
 
-//OpenDocx open and load all files content
+// OpenDocxReader open and load all readers content
 func OpenDocxReader(bytesReader *bytes.Reader) (*Docx, error) {
 	reader, err := zip.NewReader(bytesReader, bytesReader.Size())
 	if err != nil {
@@ -61,54 +71,7 @@ func OpenDocxReader(bytesReader *bytes.Reader) (*Docx, error) {
 	return &wordDoc, nil
 }
 
-// ToStr converts a .docx document file to string
-func ToStr(filename string) (string, error) {
-	d, err := OpenDocx(filename)
-	if err != nil {
-		return "", err
-	}
-	d.CloseZip()
-	d.GenWordsList()
-	if err != nil {
-		return "", errors.New("Could not Generate Word List")
-	}
-	var result string
-	for _, word := range d.WordsList {
-		for _, content := range word.Content {
-			result += content
-		}
-		result += "\n"
-	}
-	return result, nil
-}
-
-//OpenDocx open and load all files content
-func OpenDocx(path string) (*Docx, error) {
-	reader, err := zip.OpenReader(path)
-	if err != nil {
-		return nil, err
-	}
-
-	wordDoc := Docx{
-		zipFileReader: reader,
-		Files:         reader.File,
-		FilesContent:  map[string][]byte{},
-	}
-
-	for _, f := range wordDoc.Files {
-		contents, _ := wordDoc.retrieveFileContents(f.Name)
-		wordDoc.FilesContent[f.Name] = contents
-	}
-
-	return &wordDoc, nil
-}
-
-//Close is close reader
-func (d *Docx) CloseZip() error {
-	return d.zipFileReader.Close()
-}
-
-//Read all files contents
+// Read all files contents
 func (d *Docx) retrieveFileContents(filename string) ([]byte, error) {
 	var file *zip.File
 	for _, f := range d.Files {
@@ -129,7 +92,7 @@ func (d *Docx) retrieveFileContents(filename string) ([]byte, error) {
 	return ioutil.ReadAll(reader)
 }
 
-//GenWordsList
+// GenWordsList generate a list of all words
 func (d *Docx) GenWordsList() {
 	xmlData := string(d.FilesContent["word/document.xml"])
 	d.listP(xmlData)
