@@ -11,5 +11,6 @@ jobs:
     steps:
       # specify any bash command here prefixed with `run: `
       - run: git clone https://github.com/lu4p/cat.git .
-      - run: bash test.sh
       - run: go build ./cmd/cat
+      - run: bash test.sh
+      
