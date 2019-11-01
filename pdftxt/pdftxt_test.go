@@ -20,8 +20,12 @@ func TestToStr(t *testing.T) {
 	} else {
 		t.Error(".pdf does not match test:", txt, test)
 	}
-	_, err = pdftxt.ToStr("./test/nonexistent")
+	_, err = pdftxt.ToStr("../test/nonexistent")
 	if err == nil {
 		t.Error("Nonexisting file does not throw error")
+	}
+	_, err = pdftxt.ToStr("../test/test.docx")
+	if err == nil {
+		t.Error("Non .pdf file does not throw error")
 	}
 }

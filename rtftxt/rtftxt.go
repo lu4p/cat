@@ -19,6 +19,7 @@ func ToStr(filename string) (string, error) {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return "", err
+
 	}
 	return BytesToStr(content)
 }
