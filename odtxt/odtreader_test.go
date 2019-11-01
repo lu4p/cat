@@ -21,4 +21,13 @@ func TestTxt(t *testing.T) {
 	if err == nil {
 		t.Error("Nonexisting file does not throw error")
 	}
+	_, err = odtxt.BytesToStr(nil)
+	if err == nil {
+		t.Error("Invalid zip file does not throw error")
+	}
+
+	_, err = odtxt.ToStr("../test/test.docx")
+	if err == nil {
+		t.Error("Does not return error for .docx")
+	}
 }

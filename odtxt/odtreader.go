@@ -94,10 +94,10 @@ func (d *odt) retrieveFileContents(filename string) ([]byte, error) {
 	return ioutil.ReadAll(reader)
 }
 
-func (d *odt) GetTxt() (content string, err error) {
+func (d *odt) GetTxt() (string, error) {
 	xmlData := d.FilesContent["content.xml"]
-	content, err = d.listP(xmlData)
-	return
+	return d.listP(xmlData)
+
 }
 
 // listP for w:p tag value
