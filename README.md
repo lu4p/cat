@@ -17,7 +17,7 @@ import (
 )
 
 func main(){
-  txt, _ := cat.Cat("filename")
+  txt, _ := cat.File("filename")
   fmt.Println(txt)
 }
 ```
