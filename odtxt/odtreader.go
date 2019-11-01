@@ -3,6 +3,7 @@ package odtxt
 
 import (
 	"archive/zip"
+	"bytes"
 	"encoding/xml"
 	"errors"
 	"io/ioutil"
@@ -17,13 +18,33 @@ type Odt struct {
 	Content       string
 }
 
+type Query struct {
+	XMLName xml.Name `xml:"document-content"`
+	Body    Body     `xml:"body"`
+}
+type Body struct {
+	Text []Text `xml:"text"`
+}
+type Text struct {
+	P []string `xml:"p"`
+}
+
 // ToStr converts a .odt document file to string
 func ToStr(filename string) (string, error) {
-	d, err := Open(filename)
+	content, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return "", err
 	}
-	d.CloseZip()
+	return BytesToStr(content)
+}
+
+// BytesToStr converts a []byte representation of a .odt document file to string
+func BytesToStr(data []byte) (string, error) {
+	reader := bytes.NewReader(data)
+	d, err := OpenReader(reader)
+	if err != nil {
+		return "", err
+	}
 	content, err := d.GetTxt()
 	if err != nil {
 		return "", errors.New("Could not Get Content")
@@ -31,14 +52,15 @@ func ToStr(filename string) (string, error) {
 	return content, nil
 }
 
-func Open(path string) (*Odt, error) {
-	reader, err := zip.OpenReader(path)
+// OpenReader open and load all readers content
+func OpenReader(bytesReader *bytes.Reader) (*Odt, error) {
+	reader, err := zip.NewReader(bytesReader, bytesReader.Size())
 	if err != nil {
 		return nil, err
 	}
 
 	odtDoc := Odt{
-		zipFileReader: reader,
+		zipFileReader: nil,
 		Files:         reader.File,
 		FilesContent:  map[string][]byte{},
 	}
@@ -49,10 +71,6 @@ func Open(path string) (*Odt, error) {
 	}
 
 	return &odtDoc, nil
-}
-
-func (d *Odt) CloseZip() error {
-	return d.zipFileReader.Close()
 }
 
 //Read all files contents
@@ -99,15 +117,4 @@ func (d *Odt) listP(data []byte) (string, error) {
 		}
 	}
 	return result, nil
-}
-
-type Query struct {
-	XMLName xml.Name `xml:"document-content"`
-	Body    Body     `xml:"body"`
-}
-type Body struct {
-	Text []Text `xml:"text"`
-}
-type Text struct {
-	P []string `xml:"p"`
 }

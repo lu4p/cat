@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"os"
+	"io/ioutil"
 	"strconv"
 	"strings"
 	"time"
@@ -16,15 +16,20 @@ import (
 
 // ToStr converts a .rtf document file to string
 func ToStr(filename string) (string, error) {
-	f, err := os.Open(filename)
+	content, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return "", err
 	}
-	r, err := Text(f)
+	return BytesToStr(content)
+}
+
+// BytesToStr converts a []byte representation of a .rtf document file to string
+func BytesToStr(data []byte) (string, error) {
+	reader := bytes.NewReader(data)
+	r, err := Text(reader)
 	if err != nil {
 		return "", err
 	}
-	f.Close()
 	s := r.String()
 	return s, nil
 }

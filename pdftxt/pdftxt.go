@@ -1,23 +1,28 @@
-//Package pdftxt extracts text from pdf documents
+//Package pdftxt extracts text from .pdf documents
 package pdftxt
 
 import (
-	"os"
+	"bytes"
+	"io/ioutil"
 
 	"github.com/lu4p/unipdf/v3/extractor"
 	pdf "github.com/lu4p/unipdf/v3/model"
 )
 
-// ToStr prints out contents of PDF file to stdout.
+// ToStr converts a plaintext file to string
 func ToStr(inputPath string) (string, error) {
-	f, err := os.Open(inputPath)
+	content, err := ioutil.ReadFile(inputPath)
 	if err != nil {
 		return "", err
 	}
+	return BytesToStr(content)
+}
 
-	defer f.Close()
+// BytesToStr converts a []byte representation of a .pdf document file to string
+func BytesToStr(data []byte) (string, error) {
+	reader := bytes.NewReader(data)
 
-	pdfReader, err := pdf.NewPdfReader(f)
+	pdfReader, err := pdf.NewPdfReader(reader)
 	if err != nil {
 		return "", err
 	}
