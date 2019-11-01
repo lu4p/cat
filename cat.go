@@ -2,11 +2,9 @@
 package cat
 
 import (
-	"errors"
-	"os"
-	"path/filepath"
-	"strings"
+	"io/ioutil"
 
+	"github.com/gabriel-vasile/mimetype"
 	"github.com/lu4p/cat/docxtxt"
 	"github.com/lu4p/cat/odtxt"
 	"github.com/lu4p/cat/pdftxt"
@@ -14,27 +12,29 @@ import (
 	"github.com/lu4p/cat/rtftxt"
 )
 
-// Cat reads a .odt, .docx, .rtf or plaintext file and returns the content as a string
-func Cat(filename string) (txt string, err error) {
-	filename, err = filepath.Abs(filename)
+// File reads a .odt, .docx, .rtf or plaintext file and returns the content as a string
+func File(filename string) (string, error) {
+	content, err := ioutil.ReadFile(filename)
 	if err != nil {
-		return "", errors.New("abs " + err.Error())
+		return "", err
 	}
-	_, err = os.Stat(filename)
-	if err != nil {
-		err = errors.New("File does not exist")
-		return
+	return FromBytes(content)
+}
+
+// FromBytes converts a []bytes representation of a document to text
+func FromBytes(data []byte) (string, error) {
+	mime, _ := mimetype.Detect(data)
+	switch mime {
+	case "application/vnd.oasis.opendocument.text":
+		return odtxt.BytesToStr(data)
+	case "application/pdf":
+		return pdftxt.BytesToStr(data)
+	case "text/rtf":
+		return rtftxt.BytesToStr(data)
+	case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+		return docxtxt.BytesToStr(data)
+	default:
+		return plaintxt.BytesToStr(data)
 	}
-	if strings.HasSuffix(filename, ".odt") {
-		txt, err = odtxt.ToStr(filename)
-	} else if strings.HasSuffix(filename, ".docx") {
-		txt, err = docxtxt.ToStr(filename)
-	} else if strings.HasSuffix(filename, ".rtf") {
-		txt, err = rtftxt.ToStr(filename)
-	} else if strings.HasSuffix(filename, ".pdf") {
-		txt, err = pdftxt.ToStr(filename)
-	} else {
-		txt, err = plaintxt.ToStr(filename)
-	}
-	return
+
 }
