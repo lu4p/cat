@@ -3,6 +3,7 @@ package odtxt
 
 import (
 	"archive/zip"
+	"bytes"
 	"encoding/xml"
 	"errors"
 	"io/ioutil"
@@ -15,6 +16,41 @@ type Odt struct {
 	Files         []*zip.File
 	FilesContent  map[string][]byte
 	Content       string
+}
+
+// BytesToStr converts a []byte representation of .odt document file to string
+func BytesToStr(data []byte) (string, error) {
+	reader := bytes.NewReader(data)
+	d, err := OpenReader(reader)
+	if err != nil {
+		return "", err
+	}
+	content, err := d.GetTxt()
+	if err != nil {
+		return "", errors.New("Could not Get Content")
+	}
+	return content, nil
+}
+
+//OpenDocx open and load all files content
+func OpenReader(bytesReader *bytes.Reader) (*Odt, error) {
+	reader, err := zip.NewReader(bytesReader, bytesReader.Size())
+	if err != nil {
+		return nil, err
+	}
+
+	odtDoc := Odt{
+		zipFileReader: nil,
+		Files:         reader.File,
+		FilesContent:  map[string][]byte{},
+	}
+
+	for _, f := range odtDoc.Files {
+		contents, _ := odtDoc.retrieveFileContents(f.Name)
+		odtDoc.FilesContent[f.Name] = contents
+	}
+
+	return &odtDoc, nil
 }
 
 // ToStr converts a .odt document file to string
