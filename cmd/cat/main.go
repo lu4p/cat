@@ -17,5 +17,5 @@ func main() {
 	path := strings.Join(args[1:], " ")
 	log.Println(path)
 
-	fmt.Println(cat.Cat(path))
+	fmt.Println(cat.File(path))
 }

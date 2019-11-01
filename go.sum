@@ -5,8 +5,11 @@ github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/gabriel-vasile/mimetype v0.3.21 h1:Mc81ydjjIFN3Ir12WJ4myhnMs6cFAIlthU7MKY6XAIk=
 github.com/gabriel-vasile/mimetype v0.3.21/go.mod h1:6CDPel/o/3/s4+bp6kIbsWATq8pmgOisOPG40CJa6To=
 github.com/gunnsth/pkcs7 v0.0.0-20181213175627-3cffc6fbfe83/go.mod h1:xaGEIRenAiJcGgd9p62zbiP4993KaV3PdjczwGnP50I=
+github.com/lu4p/cat v0.0.0-20191030011231-79c131f45b2e/go.mod h1:CtOTNQE5aMuxH9NeS2Cf0pMWxzEVgoBk4+56sfbAq9g=
 github.com/lu4p/unipdf/v3 v3.3.2 h1:MI1CmbDjxA2LhAJwfKMH9USo16B0iLU4XakQ/9ZbdI8=
 github.com/lu4p/unipdf/v3 v3.3.2/go.mod h1:BN0DPOet7qvp6n+JbZVUR1MgWNROJMlg8l43dCFRU1A=
+github.com/micaelAlastor/cat v0.0.0-20191030075439-688d651d05d7 h1:ZOYAuATnJjRFUmxYwIYObbIohGeuNJySIj+ZKapRdCY=
+github.com/micaelAlastor/cat v0.0.0-20191030075439-688d651d05d7/go.mod h1:zRoptJeqzZ3SyxaPgcDQKRsG6uji4SZqhZw5/5oWH2E=
 github.com/otiai10/gosseract v2.2.1+incompatible h1:Ry5ltVdpdp4LAa2bMjsSJH34XHVOV7XMi41HtzL8X2I=
 github.com/otiai10/gosseract v2.2.1+incompatible/go.mod h1:XrzWItCzCpFRZ35n3YtVTgq5bLAhFIkascoRo8G32QE=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
