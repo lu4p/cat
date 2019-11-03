@@ -12,6 +12,8 @@ import (
 	"github.com/lu4p/cat/rtftxt"
 )
 
+var test string
+
 // File reads a .odt, .docx, .rtf or plaintext file and returns the content as a string
 func File(filename string) (string, error) {
 	content, err := ioutil.ReadFile(filename)
@@ -37,3 +39,4 @@ func FromBytes(data []byte) (string, error) {
 		return plaintxt.BytesToStr(data)
 	}
 }
+
