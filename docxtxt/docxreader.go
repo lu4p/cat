@@ -12,7 +12,6 @@ import (
 //docx zip struct
 type docx struct {
 	zipFileReader *zip.ReadCloser
-	zipReader     *zip.Reader
 	Files         []*zip.File
 	FilesContent  map[string][]byte
 	WordsList     []*words
@@ -142,5 +141,4 @@ func (d *docx) listP(data string) {
 		}
 		d.getT(item)
 	}
-	return
 }

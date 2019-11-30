@@ -12,7 +12,6 @@ import (
 //Odt zip struct
 type odt struct {
 	zipFileReader *zip.ReadCloser
-	zipReader     *zip.Reader
 	Files         []*zip.File
 	FilesContent  map[string][]byte
 	Content       string

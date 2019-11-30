@@ -229,9 +229,7 @@ func readUntilClosingBrace(r peekingReader.Reader) error {
 }
 
 func handleParams(control, param string, text *bytes.Buffer) {
-	if strings.HasPrefix(param, " ") {
-		param = param[1:]
-	}
+	param = strings.TrimPrefix(param, " ")
 	if param == "" {
 		return
 	}
