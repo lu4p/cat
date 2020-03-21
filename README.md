@@ -1,4 +1,4 @@
-[![GoDoc](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square))](https://pkg.go.dev/github.com/lu4p/cat)
+[![GoDoc](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/lu4p/cat)
 [![License](https://img.shields.io/github/license/lu4p/cat.svg)](https://unlicense.org/)
 [![CircleCI](https://circleci.com/gh/lu4p/cat.svg?style=svg)](https://circleci.com/gh/lu4p/cat)
 [![Go Report Card](https://goreportcard.com/badge/github.com/lu4p/cat)](https://goreportcard.com/report/github.com/lu4p/cat)
