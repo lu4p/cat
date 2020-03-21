@@ -9,7 +9,7 @@ import (
 	"regexp"
 )
 
-//docx zip struct
+// docx zip struct
 type docx struct {
 	zipFileReader *zip.ReadCloser
 	Files         []*zip.File
@@ -28,7 +28,6 @@ func ToStr(filename string) (string, error) {
 		return "", err
 	}
 	return BytesToStr(content)
-
 }
 
 // BytesToStr converts a []byte representation of .docx document file to string
@@ -97,7 +96,7 @@ func (d *docx) GenWordsList() {
 	d.listP(xmlData)
 }
 
-//get w:t value
+// get w:t value
 func (d *docx) getT(item string) {
 	var subStr string
 	data := item
@@ -131,7 +130,7 @@ func hasP(data string) bool {
 func (d *docx) listP(data string) {
 	var result []string
 	re := regexp.MustCompile(`(?U)<w:p>(.*)</w:p>`)
-	for _, match := range re.FindAllStringSubmatch(string(data), -1) {
+	for _, match := range re.FindAllStringSubmatch(data, -1) {
 		result = append(result, match[1])
 	}
 	for _, item := range result {

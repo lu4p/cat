@@ -6,8 +6,9 @@ import (
 
 func TestPushPeekPopLen(t *testing.T) {
 	var s stack
-	s.Push("hello")
-	if s.size != 1 || s.top.value != "hello" || s.top.next != nil {
+	const h = "hello"
+	s.Push(h)
+	if s.size != 1 || s.top.value != h || s.top.next != nil {
 		t.Error("expected valid value", s.size, s.top)
 	}
 
@@ -15,11 +16,11 @@ func TestPushPeekPopLen(t *testing.T) {
 		t.Error("expected correct length")
 	}
 
-	if v := s.Peek(); v != "hello" || s.size != 1 || s.top.value != "hello" || s.top.next != nil {
+	if v := s.Peek(); v != h || s.size != 1 || s.top.value != h || s.top.next != nil {
 		t.Error("expected same value and no size reduction")
 	}
 
-	if v := s.Pop(); v != "hello" {
+	if v := s.Pop(); v != h {
 		t.Error("expected pushed value", v)
 	}
 

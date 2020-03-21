@@ -19,8 +19,8 @@ func ToStr(filename string) (string, error) {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return "", err
-
 	}
+
 	return BytesToStr(content)
 }
 
@@ -228,20 +228,38 @@ func readUntilClosingBrace(r peekingReader.Reader) error {
 	return err
 }
 
-func handleParams(control, param string, text *bytes.Buffer) {
+func handleParams(control, param string, text io.StringWriter) {
 	param = strings.TrimPrefix(param, " ")
 	if param == "" {
 		return
 	}
 	switch control {
-
 	case "fldrslt":
 		text.WriteString(param)
-	case "acccircle", "acccomma", "accdot", "accnone", "accunderdot", "animtextN", "b", "caps", "cbN", "cchsN ", "cfN", "charscalexN", "csN", "dnN", "embo", "expndN", "expndtwN ", "fittextN", "fN", "fsN", "i", "kerningN ", "langfeN", "langfenpN", "langN", "langnpN", "ltrch", "noproof", "nosupersub ", "outl", "plain", "rtlch", "scaps", "shad", "strike", "sub ", "super ", "ul", "ulcN", "uld", "uldash", "uldashd", "uldashdd", "uldb", "ulhwave", "ulldash", "ulnone", "ulth", "ulthd", "ulthdash", "ulthdashd", "ulthdashdd", "ulthldash", "ululdbwave", "ulw", "ulwave", "upN", "v", "webhidden":
+	case "acccircle", "acccomma", "accdot", "accnone", "accunderdot",
+		"animtextN", "b", "caps", "cbN", "cchsN ", "cfN", "charscalexN",
+		"csN", "dnN", "embo", "expndN", "expndtwN ", "fittextN", "fN",
+		"fsN", "i", "kerningN ", "langfeN", "langfenpN", "langN", "langnpN",
+		"ltrch", "noproof", "nosupersub ", "outl", "plain", "rtlch", "scaps",
+		"shad", "strike", "sub ", "super ", "ul", "ulcN", "uld", "uldash",
+		"uldashd", "uldashdd", "uldb", "ulhwave", "ulldash", "ulnone", "ulth",
+		"ulthd", "ulthdash", "ulthdashd", "ulthdashdd", "ulthldash", "ululdbwave", "ulw", "ulwave", "upN", "v", "webhidden":
 		text.WriteString(param)
 
 	// Paragraph Formatting Properties
-	case "aspalpha", "aspnum", "collapsed", "contextualspace", "cufiN", "culiN", "curiN", "faauto", "facenter", "fafixed", "fahang", "faroman", "favar", "fiN", "hyphpar ", "indmirror", "intbl", "itapN", "keep", "keepn", "levelN", "liN", "linN", "lisaN", "lisbN", "ltrpar", "nocwrap", "noline", "nooverflow", "nosnaplinegrid", "nowidctlpar ", "nowwrap", "outlinelevelN ", "pagebb", "pard", "prauthN", "prdateN", "qc", "qd", "qj", "qkN", "ql", "qr", "qt", "riN", "rinN", "rtlpar", "saautoN", "saN", "sbautoN", "sbN", "sbys", "slmultN", "slN", "sN", "spv", "subdocumentN ", "tscbandhorzeven", "tscbandhorzodd", "tscbandverteven", "tscbandvertodd", "tscfirstcol", "tscfirstrow", "tsclastcol", "tsclastrow", "tscnecell", "tscnwcell", "tscsecell", "tscswcell", "txbxtwalways", "txbxtwfirst", "txbxtwfirstlast", "txbxtwlast", "txbxtwno", "widctlpar", "ytsN":
+	case "aspalpha", "aspnum", "collapsed", "contextualspace",
+		"cufiN", "culiN", "curiN", "faauto", "facenter",
+		"fafixed", "fahang", "faroman", "favar", "fiN", "hyphpar ",
+		"indmirror", "intbl", "itapN", "keep", "keepn", "levelN", "liN",
+		"linN", "lisaN", "lisbN", "ltrpar", "nocwrap", "noline", "nooverflow",
+		"nosnaplinegrid", "nowidctlpar ", "nowwrap", "outlinelevelN ", "pagebb",
+		"pard", "prauthN", "prdateN", "qc", "qd", "qj", "qkN", "ql", "qr", "qt",
+		"riN", "rinN", "rtlpar", "saautoN", "saN", "sbautoN", "sbN", "sbys",
+		"slmultN", "slN", "sN", "spv", "subdocumentN ", "tscbandhorzeven",
+		"tscbandhorzodd", "tscbandverteven", "tscbandvertodd", "tscfirstcol",
+		"tscfirstrow", "tsclastcol", "tsclastrow", "tscnecell", "tscnwcell",
+		"tscsecell", "tscswcell", "txbxtwalways", "txbxtwfirst", "txbxtwfirstlast",
+		"txbxtwlast", "txbxtwno", "widctlpar", "ytsN":
 		text.WriteString(param)
 
 	// Section Formatting Properties
@@ -253,7 +271,8 @@ func handleParams(control, param string, text *bytes.Buffer) {
 		text.WriteString(param)
 
 	// Special Characters
-	case "-", ":", "_", "{", "|", "}", "~", "bullet", "chatn", "chdate", "chdpa", "chdpl", "chftn", "chftnsep", "chftnsepc", "chpgn", "chtime", "column", "emdash", "emspace ", "endash", "enspace ", "lbrN", "ldblquote", "line", "lquote", "ltrmark", "page", "par", "qmspace", "rdblquote", "row", "rquote", "rtlmark", "sect", "sectnum", "softcol ", "softlheightN ", "softline ", "softpage ", "tab", "zwbo", "zwj", "zwnbo", "zwnj":
+	case "-", ":", "_", "{", "|", "}", "~", "bullet", "chatn", "chdate", "chdpa", "chdpl", "chftn", "chftnsep", "chftnsepc", "chpgn", "chtime", "column", "emdash", "emspace ",
+		"endash", "enspace ", "lbrN", "ldblquote", "line", "lquote", "ltrmark", "page", "par", "qmspace", "rdblquote", "row", "rquote", "rtlmark", "sect", "sectnum", "softcol ", "softlheightN ", "softline ", "softpage ", "tab", "zwbo", "zwj", "zwnbo", "zwnj":
 		text.WriteString(param)
 
 	// Table Definitions

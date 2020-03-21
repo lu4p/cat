@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 )
 
-//Odt zip struct
+// odt zip struct
 type odt struct {
 	zipFileReader *zip.ReadCloser
 	Files         []*zip.File
@@ -46,7 +46,7 @@ func BytesToStr(data []byte) (string, error) {
 	}
 	content, err := d.GetTxt()
 	if err != nil {
-		return "", errors.New("Could not Get Content")
+		return "", errors.New("could not Get Content")
 	}
 	return content, nil
 }
@@ -72,7 +72,7 @@ func openReader(bytesReader *bytes.Reader) (*odt, error) {
 	return &odtDoc, nil
 }
 
-//Read all files contents
+// retrieveFileContents Read all files contents
 func (d *odt) retrieveFileContents(filename string) ([]byte, error) {
 	var file *zip.File
 	for _, f := range d.Files {
@@ -96,7 +96,6 @@ func (d *odt) retrieveFileContents(filename string) ([]byte, error) {
 func (d *odt) GetTxt() (string, error) {
 	xmlData := d.FilesContent["content.xml"]
 	return d.listP(xmlData)
-
 }
 
 // listP for w:p tag value

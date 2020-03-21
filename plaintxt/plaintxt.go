@@ -13,7 +13,6 @@ func ToStr(filename string) (string, error) {
 		return "", errors.New("Error while reading file: " + err.Error())
 	}
 	return BytesToStr(content)
-
 }
 
 // BytesToStr converts a []byte representation of a plaintext file to string

@@ -23,8 +23,8 @@ func File(filename string) (string, error) {
 
 // FromBytes converts a []bytes representation of a document to text
 func FromBytes(data []byte) (string, error) {
-	mime, _ := mimetype.Detect(data)
-	switch mime {
+	mime := mimetype.Detect(data)
+	switch mime.String() {
 	case "application/vnd.oasis.opendocument.text":
 		return odtxt.BytesToStr(data)
 	case "application/pdf":

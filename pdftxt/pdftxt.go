@@ -1,4 +1,4 @@
-//Package pdftxt extracts text from .pdf documents
+// Package pdftxt extracts text from .pdf documents
 package pdftxt
 
 import (
@@ -57,3 +57,4 @@ func BytesToStr(data []byte) (string, error) {
 
 	return out, nil
 }
+
