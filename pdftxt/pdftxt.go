@@ -57,4 +57,3 @@ func BytesToStr(data []byte) (string, error) {
 
 	return out, nil
 }
-
