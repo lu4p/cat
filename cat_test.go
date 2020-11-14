@@ -13,7 +13,7 @@ const test = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ex
 const red = "Restore The Selling Balance. Ad Technology doesn't have to be faceless. Our platform is designed to connect media companies directly to advertisers."
 
 func TestCat(t *testing.T) {
-	filetypes := []string{".docx", ".odt", ".txt", ".pdf"}
+	filetypes := []string{".docx", ".odt", ".txt"}
 	for _, filetype := range filetypes {
 		txt, err := cat.File("./test/test" + filetype)
 		if err != nil {
