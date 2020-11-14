@@ -7,7 +7,6 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/lu4p/cat/docxtxt"
 	"github.com/lu4p/cat/odtxt"
-	"github.com/lu4p/cat/pdftxt"
 	"github.com/lu4p/cat/plaintxt"
 	"github.com/lu4p/cat/rtftxt"
 )
@@ -27,8 +26,6 @@ func FromBytes(data []byte) (string, error) {
 	switch mime.String() {
 	case "application/vnd.oasis.opendocument.text":
 		return odtxt.BytesToStr(data)
-	case "application/pdf":
-		return pdftxt.BytesToStr(data)
 	case "text/rtf":
 		return rtftxt.BytesToStr(data)
 	case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
