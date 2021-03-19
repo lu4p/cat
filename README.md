@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/lu4p/cat/branch/master/graph/badge.svg)](https://codecov.io/gh/lu4p/cat)
 
 # cat
-This is a simple libary to extract text from plaintext, .docx, .odt, .pdf and .rtf files.
+This is a simple libary to extract text from plaintext, .docx, .odt and .rtf files.
 
 ## Install
 ```go get -u github.com/lu4p/cat```
