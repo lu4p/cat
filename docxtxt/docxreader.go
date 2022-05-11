@@ -121,7 +121,7 @@ func (d *docx) getT(item string) {
 
 // hasP identify the paragraph
 func hasP(data string) bool {
-	re := regexp.MustCompile(`(?U)<w:p .*>(.*)</w:p>`)
+	re := regexp.MustCompile(`(?U)<w:p[^>]*>(.*)</w:p>`)
 	result := re.MatchString(data)
 	return result
 }
@@ -129,7 +129,7 @@ func hasP(data string) bool {
 // listP for w:p tag value
 func (d *docx) listP(data string) {
 	var result []string
-	re := regexp.MustCompile(`(?U)<w:p>(.*)</w:p>`)
+	re := regexp.MustCompile(`(?U)<w:p[^>]*(.*)</w:p>`)
 	for _, match := range re.FindAllStringSubmatch(data, -1) {
 		result = append(result, match[1])
 	}
