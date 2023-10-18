@@ -126,7 +126,16 @@ func tokenizeControl(r peekingReader.Reader) (string, int, error) {
 		case b == '\'' && buf.Len() == 0:
 			isHex = true
 			buf.WriteByte(b)
-			r.ReadByte()
+			r.ReadByte() // consume valid character
+			// read 2 bytes for hex
+			for i := 0; i < 2; i++ {
+				b, err = r.ReadByte() // consume valid digit
+				if err != nil {
+					return "", -1, err
+				}
+				buf.WriteByte(b)
+			}
+			return buf.String(), -1, nil
 		case b >= '0' && b <= '9' || b == '-':
 			if numStart == -1 {
 				numStart = buf.Len()
