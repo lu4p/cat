@@ -5,13 +5,14 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lu4p/cat"
+	"github.com/justhx0r/cat"
 )
 
 const test = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ex nec risus venenatis viverra. Cras condimentum dolor vitae dictum rutrum. Etiam viverra sit amet mi at lacinia."
 
 const red = "Restore The Selling Balance. Ad Technology doesn't have to be faceless. Our platform is designed to connect media companies directly to advertisers."
 
+//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
 func TestCat(t *testing.T) {
 	filetypes := []string{".docx", ".odt", ".txt"}
 	for _, filetype := range filetypes {
@@ -42,6 +43,7 @@ func TestCat(t *testing.T) {
 	}
 }
 
+//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
 func Example() {
 	txt, _ := cat.File("./test/test.docx")
 	fmt.Println(txt)

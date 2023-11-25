@@ -5,13 +5,14 @@ import (
 	"io/ioutil"
 
 	"github.com/gabriel-vasile/mimetype"
-	"github.com/lu4p/cat/docxtxt"
-	"github.com/lu4p/cat/odtxt"
-	"github.com/lu4p/cat/plaintxt"
-	"github.com/lu4p/cat/rtftxt"
+	"github.com/justhx0r/cat/docxtxt"
+	"github.com/justhx0r/cat/odtxt"
+	"github.com/justhx0r/cat/plaintxt"
+	"github.com/justhx0r/cat/rtftxt"
 )
 
 // File reads a .odt, .docx, .rtf or plaintext file and returns the content as a string
+//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
 func File(filename string) (string, error) {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -21,6 +22,7 @@ func File(filename string) (string, error) {
 }
 
 // FromBytes converts a []bytes representation of a document to text
+//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
 func FromBytes(data []byte) (string, error) {
 	mime := mimetype.Detect(data)
 	switch mime.String() {

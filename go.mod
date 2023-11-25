@@ -1,4 +1,4 @@
-module github.com/lu4p/cat
+module github.com/justhx0r/cat
 
 go 1.15
 

@@ -7,6 +7,7 @@ import (
 )
 
 // ToStr converts a plaintext file to string
+//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
 func ToStr(filename string) (string, error) {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -16,6 +17,7 @@ func ToStr(filename string) (string, error) {
 }
 
 // BytesToStr converts a []byte representation of a plaintext file to string
+//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
 func BytesToStr(data []byte) (string, error) {
 	return string(data), nil
 }

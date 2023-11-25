@@ -3,11 +3,12 @@ package odtxt_test
 import (
 	"testing"
 
-	"github.com/lu4p/cat/odtxt"
+	"github.com/justhx0r/cat/odtxt"
 )
 
 const test = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ex nec risus venenatis viverra. Cras condimentum dolor vitae dictum rutrum. Etiam viverra sit amet mi at lacinia.\n"
 
+//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
 func TestTxt(t *testing.T) {
 	txt, err := odtxt.ToStr("../test/test.odt")
 	if err != nil {
