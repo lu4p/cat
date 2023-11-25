@@ -9,7 +9,7 @@ import (
 	"github.com/justhx0r/cat"
 )
 
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func main() {
 	args := os.Args
 	if len(args) < 2 {

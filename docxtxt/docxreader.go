@@ -22,7 +22,7 @@ type words struct {
 }
 
 // ToStr converts a .docx document file to string
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func ToStr(filename string) (string, error) {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -32,7 +32,7 @@ func ToStr(filename string) (string, error) {
 }
 
 // BytesToStr converts a []byte representation of .docx document file to string
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func BytesToStr(data []byte) (string, error) {
 	reader := bytes.NewReader(data)
 	d, err := openDocxReader(reader)
@@ -51,7 +51,7 @@ func BytesToStr(data []byte) (string, error) {
 }
 
 // openDocxReader open and load all readers content
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func openDocxReader(bytesReader *bytes.Reader) (*docx, error) {
 	reader, err := zip.NewReader(bytesReader, bytesReader.Size())
 	if err != nil {
@@ -123,7 +123,7 @@ func (d *docx) getT(item string) {
 }
 
 // hasP identify the paragraph
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func hasP(data string) bool {
 	re := regexp.MustCompile(`(?U)<w:p[^>]*>(.*)</w:p>`)
 	result := re.MatchString(data)

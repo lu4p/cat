@@ -12,7 +12,7 @@ import (
 )
 
 // File reads a .odt, .docx, .rtf or plaintext file and returns the content as a string
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func File(filename string) (string, error) {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -22,7 +22,7 @@ func File(filename string) (string, error) {
 }
 
 // FromBytes converts a []bytes representation of a document to text
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func FromBytes(data []byte) (string, error) {
 	mime := mimetype.Detect(data)
 	switch mime.String() {

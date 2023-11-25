@@ -15,7 +15,7 @@ import (
 )
 
 // ToStr converts a .rtf document file to string
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func ToStr(filename string) (string, error) {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -26,7 +26,7 @@ func ToStr(filename string) (string, error) {
 }
 
 // BytesToStr converts a []byte representation of a .rtf document file to string
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func BytesToStr(data []byte) (string, error) {
 	reader := bytes.NewReader(data)
 	r, err := Text(reader)
@@ -39,7 +39,7 @@ func BytesToStr(data []byte) (string, error) {
 
 // Text is used to convert an io.Reader containing RTF data into
 // plain text
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func Text(r io.Reader) (*bytes.Buffer, error) {
 	pr := peekingReader.NewBufReader(r)
 
@@ -61,7 +61,7 @@ func Text(r io.Reader) (*bytes.Buffer, error) {
 	return &text, nil
 }
 
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func readControl(r peekingReader.Reader, s *stack, text *bytes.Buffer) error {
 	control, num, err := tokenizeControl(r)
 	if err != nil {
@@ -113,7 +113,7 @@ func readControl(r peekingReader.Reader, s *stack, text *bytes.Buffer) error {
 	return nil
 }
 
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func tokenizeControl(r peekingReader.Reader) (string, int, error) {
 	var buf bytes.Buffer
 	isHex := false
@@ -166,7 +166,7 @@ func tokenizeControl(r peekingReader.Reader) (string, int, error) {
 	}
 }
 
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func canonicalize(control string, numStart int) (string, int) {
 	if numStart == -1 || numStart >= len(control) {
 		return control, -1
@@ -178,7 +178,7 @@ func canonicalize(control string, numStart int) (string, int) {
 	return control[:numStart] + "N", num
 }
 
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func getUnicode(control string) (bool, string) {
 	if len(control) < 2 || control[0] != '\'' {
 		return false, ""
@@ -198,7 +198,7 @@ func getUnicode(control string) (bool, string) {
 	return true, fmt.Sprintf("%c%s", num, after)
 }
 
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func getParams(r peekingReader.Reader) (string, error) {
 	data, err := peekingReader.ReadUntilAny(r, []byte{'\\', '{', '}', '\n', '\r', ';'})
 	if err != nil {
@@ -215,7 +215,7 @@ func getParams(r peekingReader.Reader) (string, error) {
 	return string(data), nil
 }
 
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func handleBinary(r peekingReader.Reader, control string, size int) error {
 	if control != "binN" { // wrong control type
 		return nil
@@ -228,7 +228,7 @@ func handleBinary(r peekingReader.Reader, control string, size int) error {
 	return nil
 }
 
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func readUntilClosingBrace(r peekingReader.Reader) error {
 	count := 1
 	var b byte
@@ -247,7 +247,7 @@ func readUntilClosingBrace(r peekingReader.Reader) error {
 	return err
 }
 
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func handleParams(control, param string, text io.StringWriter) {
 	param = strings.TrimPrefix(param, " ")
 	if param == "" {
@@ -309,7 +309,7 @@ func handleParams(control, param string, text io.StringWriter) {
 	}
 }
 
-//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=1 junk_jumps=19 block_splits=1 flatten_hardening=xor,delegate_table
 func convertSymbol(symbol string) (string, bool) {
 	switch symbol {
 	case "bullet":
