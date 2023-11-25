@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
 func TestPushPeekPopLen(t *testing.T) {
 	var s stack
 	const h = "hello"

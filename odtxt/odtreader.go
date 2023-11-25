@@ -29,7 +29,7 @@ type text struct {
 }
 
 // ToStr converts a .odt document file to string
-//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
 func ToStr(filename string) (string, error) {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -39,7 +39,7 @@ func ToStr(filename string) (string, error) {
 }
 
 // BytesToStr converts a []byte representation of a .odt document file to string
-//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
 func BytesToStr(data []byte) (string, error) {
 	reader := bytes.NewReader(data)
 	d, err := openReader(reader)
@@ -54,7 +54,7 @@ func BytesToStr(data []byte) (string, error) {
 }
 
 // openReader open and load all readers content
-//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
 func openReader(bytesReader *bytes.Reader) (*odt, error) {
 	reader, err := zip.NewReader(bytesReader, bytesReader.Size())
 	if err != nil {

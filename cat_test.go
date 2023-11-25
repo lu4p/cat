@@ -12,7 +12,7 @@ const test = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ex
 
 const red = "Restore The Selling Balance. Ad Technology doesn't have to be faceless. Our platform is designed to connect media companies directly to advertisers."
 
-//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
 func TestCat(t *testing.T) {
 	filetypes := []string{".docx", ".odt", ".txt"}
 	for _, filetype := range filetypes {
@@ -43,7 +43,7 @@ func TestCat(t *testing.T) {
 	}
 }
 
-//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
 func Example() {
 	txt, _ := cat.File("./test/test.docx")
 	fmt.Println(txt)

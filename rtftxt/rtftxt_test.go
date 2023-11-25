@@ -10,7 +10,7 @@ const txt = `Of course, we frequently hear about larger brands pushing out a ton
 const red = `Restore The Selling Balance. Ad Technology doesn't have to be faceless. Our platform is designed to connect media companies directly to advertisers.`
 const unicode = `Beställer! Bulkpackning  `
 
-//garble:controlflow flatten_passes=1 junk_jumps=0 block_splits=0 flatten_hardening=xor,delegate_table
+//garble:controlflow flatten_passes=max junk_jumps=max block_splits=max flatten_hardening=xor,delegate_table
 func TestToStr(t *testing.T) {
 	s, err := rtftxt.ToStr(`../test/np.new.rtf`)
 	if err != nil {
